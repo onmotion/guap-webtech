@@ -7,7 +7,7 @@ window.onload = function () {
     var ctx = canvas.getContext("2d");
 
     function request(type, param) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'get',
                 url: '/index.php',
@@ -20,7 +20,7 @@ window.onload = function () {
                     resolve(response);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                   console.log(textStatus);
+                    console.log(textStatus);
                     reject(textStatus);
                 }
             });
@@ -28,36 +28,60 @@ window.onload = function () {
         });
     }
 
-    var cities = [];
+    var cities = [],
+        connections = [],
+        nodes = [];
     const $citiesList = $('#citiesList ul');
     //получаем количество городов
-    request('getCityNum').then(function(resolve){
+    request('getCityNum').then(function (resolve) {
         $('#numOfCities').html(resolve.quantity);
-        console.log(resolve);
-        for (var i = 0; i < resolve.quantity; i++){
+        var promises = [];
+        for (var i = 0; i < resolve.quantity; i++) {
             const n = i;
             //получаем названия городов
-            request('getCityName', i).then((resolve) => {
+            promises.push(request('getCityName', i).then((resolve) => {
                 cities[n] = resolve;
-                $citiesList.append(`<li>${n} - ${resolve.name}</li>`);
-                return n
+                return n;
             }).then((n) => {
-                request('getSimpleNode', n).then((node) => {
-                    console.log(node);
+                return request('getSimpleNode', n).then((node) => {
+                    nodes[n] = node;
                     var ctx = canvas.getContext("2d");
-
-                    // ctx.fillStyle = "rgb(100,0,0)";
-                    // ctx.fillRect (node[2], node[3], 50, 50);
                     ctx.beginPath();
+                    ctx.fillStyle = '#fff';
                     ctx.arc(node[2], node[3], 20, 0, 2 * Math.PI, false);
+                    ctx.strokeStyle = '#003';
+                    ctx.fill();
                     ctx.stroke();
+                    ctx.fillStyle = '#333';
                     ctx.fillText(node[1], node[2] - 3, node[3] + 3);
-                });
-            })
+                    return n;
+                }).then((n) => {
+                    return request('getNodeCon', n).then((connection) => {
+                         connections[n] = connection;
+                    });
+                })
+            }))
         }
-        return cities;
-    }).then((resolve) => {
+        $.when.apply(this,promises).then((resolve) => {
+            connections.forEach(function (connection, i) {
+                for (var relCity in connection) {
+                    if(connection.hasOwnProperty(relCity)) {
+                        if (connection[relCity] != -1) {
+                            ctx.globalCompositeOperation='destination-over';
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i][2], nodes[i][3]);
+                            ctx.lineTo(nodes[connection[relCity]][2], nodes[connection[relCity]][3]);
+                            ctx.stroke();
+                        }
+                    }
+                }
 
+            });
+                   cities.forEach(function (city, n) {
+                                                $citiesList.append(`<li>${n} - ${city.name}</li>`);
+                   })
+
+        })
 
     })
 

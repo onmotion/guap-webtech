@@ -57,5 +57,8 @@ class Socket
     public function getSimpleNode(int $cityNum){
        return self::makeQuery(pack('C*', 3, $cityNum), 'I*');
     }
+    public function getNodeCon(int $cityNum){
+       return self::makeQuery(pack('C*', 4, $cityNum), 's*');
+    }
 
 }

@@ -11,7 +11,7 @@ ini_set('error_reporting', E_ALL);
 
 spl_autoload_register(function ($class_name) {
     $parts = explode('\\', $class_name);
-    require end($parts) . '.php';
+    require strtolower(end($parts)) . '.php';
 });
 
 use kozhevnikov\Socket;
@@ -44,7 +44,12 @@ if (isset($_GET['type'])){
                 $resp = array_combine(['name'], $resp);
             }
             break;
-
+        case 'getNodeCon':
+            if (!isset($_GET['param'])){
+                throw new \Exception('Отсутствует обязательный параметр param.');
+            }
+            $resp = $client->getNodeCon((int)$_GET['param']);
+            break;
         case 'getCityNum':
             $resp = $client->getCityNum();
             if ($resp){
