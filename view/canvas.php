@@ -7,7 +7,7 @@
  */
 
 ?>
-<script type="application/javascript" src="/assets/js/main.js"></script>
+<script type="application/javascript" src="/assets/js/main.js?v=2"></script>
 
 <body>
 <h1>Карта городов</h1>
@@ -44,7 +44,7 @@
             <th>ОС</th>
             <th>Цена пути</th>
             <th>Найденный путь</th>
-            <th>#</th>
+            <th><i class="icon-eye"></i></th>
         </tr>
         </thead>
         <tbody></tbody>

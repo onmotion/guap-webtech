@@ -60,7 +60,7 @@ window.onload = function () {
                     ctx3.stroke();
                     ctx3.fillStyle = '#333';
                     ctx3.font = '11pt Calibri';
-                    ctx3.fillText(node.num, node.xPos - 3, node.yPos + 50 + 3);
+                    ctx3.fillText(node.num, node.xPos - 5, node.yPos + 50 + 3);
                     ctx3.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
                     return resolve.num;
                 }).then((n) => {
@@ -141,7 +141,7 @@ window.onload = function () {
                         <td>${route.osName}</td>
                         <td>${route.tripPrice} км</td>
                         <td>${path}</td>
-                        <td><a class="drawRoute" href="#" data-value="${pathNums}">+</a></td>
+                        <td><a class="drawRoute" href="#" data-value="${pathNums}"><i class="icon-eye"></i></a></td>
                     </tr>`)
             }))
         });
