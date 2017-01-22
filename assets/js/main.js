@@ -167,12 +167,14 @@ window.onload = function () {
         ctx2.clearRect(0, 0, canvas.width, canvas.height);
         ctx2.lineWidth = 2;
         var gLevel = 0;
+        var bLevel = 255;
         routes.forEach(function (city, i) {
             const n = city;
             p = p.then((resolve) => {
                 return new Promise((resolve) => {
                     gLevel += parseInt(255 / routes.length, 10);
-                    ctx2.strokeStyle = `rgb(0,0,${gLevel})`;
+                    bLevel -= parseInt(255 / routes.length, 10);
+                    ctx2.strokeStyle = `rgb(0,${gLevel},${bLevel})`;
                     if(i > 0) {
                         ctx2.lineTo(nodes[n]['xPos'], nodes[n]['yPos'] + 50);
                         ctx2.stroke();
