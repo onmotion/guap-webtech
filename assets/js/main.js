@@ -10,6 +10,13 @@ window.onload = function () {
     var canvas3 = document.getElementById("canvas3");
     var ctx3 = canvas3.getContext("2d");
 
+    var imageObj = new Image();
+
+    imageObj.onload = function() {
+        ctx.drawImage(imageObj, 0, 25);
+    };
+    imageObj.src = '/assets/map.png';
+
     function request(type, param) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -76,7 +83,7 @@ window.onload = function () {
                 for (var relCity in connection) {
                     if (connection.hasOwnProperty(relCity)) {
                         if (connection[relCity] != -1) {
-                            ctx.globalCompositeOperation = 'destination-over';
+                         //   ctx.globalCompositeOperation = 'destination-over';
                             ctx.beginPath();
                             ctx.moveTo(nodes[i]['xPos'], nodes[i]['yPos'] + 50);
                             ctx.lineTo(nodes[connection[relCity]]['xPos'], nodes[connection[relCity]]['yPos'] + 50);

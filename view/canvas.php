@@ -7,16 +7,16 @@
  */
 
 ?>
-<script type="application/javascript" src="/assets/js/main.js?v=4"></script>
+<script type="application/javascript" src="/assets/js/main.js?v=5"></script>
 
 <body>
 <h1>Карта городов</h1>
 <div class="container">
 
     <div class="map-wrap">
-    <canvas id="canvas" width="1250" height="780"></canvas>
-        <canvas id="canvas2" width="1250" height="780"></canvas>
-        <canvas id="canvas3" width="1250" height="780"></canvas>
+    <canvas id="canvas" width="1220" height="780"></canvas>
+        <canvas id="canvas2" width="1220" height="780"></canvas>
+        <canvas id="canvas3" width="1220" height="780"></canvas>
         <div class="right">
             <p>Всего городов: <span id="numOfCities"></span></p>
             <div id="citiesList">
