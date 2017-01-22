@@ -139,7 +139,7 @@ window.onload = function () {
                         <td>${cities[i].name}</td>
                         <td>${route.pcName}</td>
                         <td>${route.osName}</td>
-                        <td>${route.tripPrice} км</td>
+                        <td>${parseInt(route.tripPrice * 3, 10)} км</td>
                         <td>${path}</td>
                         <td><a class="drawRoute" href="#" data-value="${pathNums}"><i class="icon-eye"></i></a></td>
                     </tr>`)
