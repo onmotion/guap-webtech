@@ -52,8 +52,6 @@ const int upLim = 37 - lowLim;
 short int* startCity;
 short int* endCity;
 // Максимальное количество сообщений, которые хранятся для каждого маршрута
-const int maxHistRow = 3;
-//tripInfo tripHistory [maxCity] [maxCity];
 unsigned char tripHistory [maxCity * maxCity * sizeof (tripInfo)];
 unsigned char* pHist;// = &tripHistory [0];
 tripInfo* pInfo = reinterpret_cast <tripInfo*>(pHist);
@@ -79,8 +77,8 @@ int main (int argc, char** argv) {
  memset (pHist, 0xFF, maxCity * maxCity * sizeof (tripInfo));
 
  treeCity* pWorld = new treeCity ();
- fullData (pWorld);
  srand (time (NULL));
+ fullData (pWorld);
 
 #ifdef DEBUG
  pWorld->printTree ();
@@ -92,68 +90,160 @@ int main (int argc, char** argv) {
 
 void fullData (treeCity* pWorld) {
  // <--- - ---> Заполнение данными
- pWorld->addNode (0, 35, 155);
- pWorld->addNode (1, 220, 250);
- pWorld->addNode (2, 105, 380);
- pWorld->addNode (3, 35, 480);
- pWorld->addNode (4, 275, 470);
- pWorld->addNode (5, 390, 360);
- pWorld->addNode (6, 545, 400);
- pWorld->addNode (7, 645, 300);
- pWorld->addNode (8, 765, 180);
- pWorld->addNode (9, 660, 80);
- pWorld->addNode (10, 530, 130);
- pWorld->addNode (11, 390, 50);
- pWorld->addNode (12, 320, 150);
- pWorld->addNode (13, 150, 20);
- pWorld->addNode (14, 540, 20);
- pWorld->addNode (15, 821, 70);
- pWorld->addNode (16, 824, 270);
- pWorld->addNode (17, 670, 400);
- pWorld->addNode (18, 810, 380);
- pWorld->addNode (19, 760, 490);
- pWorld->addNode (20, 650, 520);
- pWorld->addNode (21, 530, 505);
- pWorld->addNode (22, 470, 585);
- pWorld->addNode (23, 140, 535);
+ pWorld->addNode (0, 20, 440);
+ pWorld->addNode (1, 70, 370);
+ pWorld->addNode (2, 85, 315);
+ pWorld->addNode (3, 80, 540);
+ pWorld->addNode (4, 135, 495);
+ pWorld->addNode (5, 145, 395);
+ pWorld->addNode (6, 190, 280);
+ pWorld->addNode (7, 200, 25);
+ pWorld->addNode (8, 215, 595);
+ pWorld->addNode (9, 245, 650);
+ pWorld->addNode (10, 265, 305);
+ pWorld->addNode (11, 280, 400);
+ pWorld->addNode (12, 295, 680);
+ pWorld->addNode (13, 325, 460);
+ pWorld->addNode (14, 385, 485);
+ pWorld->addNode (15, 415, 565);
+ pWorld->addNode (16, 425, 320);
+ pWorld->addNode (17, 435, 535);
+ pWorld->addNode (18, 485, 615);
+ pWorld->addNode (19, 490, 145);
+ pWorld->addNode (20, 515, 10);
+ pWorld->addNode (21, 515, 230);
+ pWorld->addNode (22, 570, 260);
+ pWorld->addNode (23, 600, 500);
+ pWorld->addNode (24, 600, 120);
+ pWorld->addNode (25, 625, 210);
+ pWorld->addNode (26, 635, 260);
+ pWorld->addNode (27, 640, 20);
+ pWorld->addNode (28, 640, 380);
+ pWorld->addNode (29, 650, 80);
+ pWorld->addNode (30, 670, 230);
+ pWorld->addNode (31, 680, 575);
+ pWorld->addNode (32, 680, 700);
+ pWorld->addNode (33, 705, 355);
+ pWorld->addNode (34, 730, 560);
+ pWorld->addNode (35, 750, 155);
+ pWorld->addNode (36, 750, 295);
+ pWorld->addNode (37, 760, 340);
+ pWorld->addNode (38, 760, 400);
+ pWorld->addNode (39, 790, 200);
+ pWorld->addNode (40, 790, 255);
+ pWorld->addNode (41, 795, 465);
+ pWorld->addNode (42, 820, 345);
+ pWorld->addNode (43, 820, 495);
+ pWorld->addNode (44, 815, 560);
+ pWorld->addNode (45, 830, 55);
+ pWorld->addNode (46, 835, 245);
+ pWorld->addNode (47, 835, 445);
+ pWorld->addNode (48, 850, 620);
+ pWorld->addNode (49, 875, 305);
+ pWorld->addNode (50, 885, 560);
+ pWorld->addNode (51, 930, 170);
+ pWorld->addNode (52, 920, 640);
+ pWorld->addNode (53, 940, 440);
+ pWorld->addNode (54, 950, 280);
+ pWorld->addNode (55, 940, 700);
+ pWorld->addNode (56, 975, 345);
+ pWorld->addNode (57, 1035, 190);
+ pWorld->addNode (58, 1050, 75);
+ pWorld->addNode (59, 1055, 295);
+ pWorld->addNode (60, 1065, 700);
+ pWorld->addNode (61, 1120, 155);
+ pWorld->addNode (62, 1180, 235);
+ pWorld->addNode (63, 1170, 345);
 
  // Устанавливаем связи
- pWorld->addNodesConnection (0, 2, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (0, 12, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (0, 13, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (0, 1, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (0, 3, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (0, 4, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (1, 2, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (1, 5, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (1, 12, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (2, 3, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (2, 6, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (2, 7, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (3, 4, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (3, 23, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (4, 5, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (4, 6, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (5, 7, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (6, 7, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (6, 17, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (7, 8, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (3, 8, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (4, 8, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (5, 6, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (5, 11, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (6, 10, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (7, 19, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (7, 20, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (8, 9, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (8, 10, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (9, 11, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (9, 12, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (9, 15, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (10, 11, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (10, 12, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (10, 16, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (10, 21, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (11, 13, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (11, 14, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (12, 18, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (13, 14, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (14, 15, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (15, 16, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (16, 17, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (16, 18, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (17, 21, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (18, 19, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (18, 20, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (19, 20, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (20, 21, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (13, 28, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (14, 17, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (14, 23, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (15, 17, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (15, 18, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (16, 22, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (16, 28, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (17, 23, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (18, 32, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (19, 21, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (19, 24, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (20, 24, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (20, 27, ((rand () % upLim) + lowLim));
  pWorld->addNodesConnection (21, 22, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (21, 23, ((rand () % upLim) + lowLim));
- pWorld->addNodesConnection (22, 23, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (22, 26, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (23, 32, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (24, 29, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (25, 26, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (25, 29, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (26, 30, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (27, 29, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (28, 38, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (30, 35, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (30, 36, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (31, 32, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (31, 34, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (33, 36, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (33, 37, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (33, 38, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (34, 43, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (34, 44, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (35, 39, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (35, 45, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (37, 42, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (39, 40, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (39, 46, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (40, 42, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (41, 42, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (41, 43, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (43, 47, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (44, 48, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (44, 50, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (45, 58, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (46, 49, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (46, 51, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (47, 49, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (47, 53, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (48, 50, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (48, 52, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (49, 54, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (50, 53, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (51, 57, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (51, 59, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (52, 55, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (52, 60, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (53, 56, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (54, 56, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (55, 60, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (56, 59, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (57, 61, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (57, 62, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (59, 63, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (61, 62, ((rand () % upLim) + lowLim));
+ pWorld->addNodesConnection (62, 63, ((rand () % upLim) + lowLim));
 }
 
 void initTcpServer (treeCity* pWorld) {
@@ -207,8 +297,9 @@ void readAndExec (int fd, treeCity* pWorld) {
  */
  char buf [maxBufLen];
  memset (buf, 0x00, maxBufLen);
- read (fd, buf, maxBufLen);
-
+ if (!read (fd, buf, maxBufLen)) {
+  return; // Клиент закрыл соединение
+ }
  switch (buf [0]) {
   case getCityNum: {
     // 2 байта
@@ -442,6 +533,11 @@ void readAndExec (int fd, treeCity* pWorld) {
   }
   break;
 
+  case resetData: {
+   // Сбросить все найденные маршруты
+   memset (pHist, 0xFF, maxCity * maxCity * sizeof (tripInfo));
+  }
+  break;
 
   default:
    cout << "wrong comm: " << (int) buf [0] << endl;

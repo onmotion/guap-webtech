@@ -70,7 +70,7 @@ void trySearchPath  (int fd, int startCity, int endCity, treeCity* pWorld);
 void checkBestPath (int fd, int startCity, int endCity);
 void serverPrintRoutes (int fd, int startCity, int endCity);
 void getRoute (int fd, int startCity, int endCity);
-
+void resetServRoutes (int fd);
 
 
 
@@ -105,6 +105,7 @@ void initTcpClient (treeCity* pWorld) {
  servAddr.sin_addr.s_addr = htonl (INADDR_ANY);
  servAddr.sin_port = htons (conPort);
  inet_pton (AF_INET, "127.0.0.1", &servAddr.sin_addr);
+ //inet_pton (AF_INET, "104.160.36.183", &servAddr.sin_addr);
  connect (sockFd, reinterpret_cast <sockaddr*> (&servAddr), sizeof (sockaddr));
 
  // Сценарий
@@ -150,6 +151,7 @@ void initTcpClient (treeCity* pWorld) {
   if (stepMode) {
    // Если пошаговый режим
    cout << "9 - для печати сервером маршрутов для любого города\n";
+   cout << "0 - для сброса всех найденных маршрутов\n";
    int r;
    cin >> r;
    cout << endl;
@@ -176,6 +178,15 @@ void initTcpClient (treeCity* pWorld) {
     //close (sockFd);
     continue;
    }
+   if (r == 0) {
+    cout << "Серверу отправлена команда сброса существующих маршрутов\n";
+    sockFd = socket (AF_INET, SOCK_STREAM, 0);
+    connect (sockFd, reinterpret_cast <sockaddr*> (&servAddr), sizeof (sockaddr));
+    resetServRoutes (sockFd);
+    close (sockFd);
+    continue;
+   }
+
   }
 
   sockFd = socket (AF_INET, SOCK_STREAM, 0);
@@ -431,4 +442,11 @@ void getRoute (int fd, int startCity, int endCity) {
 }
 
 
+void resetServRoutes (int fd) {
+ // <--- - ---> Сброс всех найденных маршрутов
+ char buf [maxBufLen];
+ memset (buf, 0x00, maxBufLen);
+ buf [0] = resetData;
+ write (fd, buf, 1);
+}
 

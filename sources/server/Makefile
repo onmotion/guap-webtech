@@ -43,7 +43,7 @@ objFiles        := $(cppFiles:.cpp=.o)
 cFlags          += -O$(optLevel) -c -g$(gdbLevel) -Wall # Флаги компиляции
 # После отладки убрать этот флаг
 cFlags          += $(patsubst %, -I %, $(subst :, , $(includeDir))) 
-#cFlags		+= -DDEBUG
+cFlags		+= -DDEBUG
 # Пути к библиотекам как опция линковщика
 ldFlags         := $(patsubst %, -L %, $(subst :, , $(libsPath)))
 # Имена библиотек как опция линковщика

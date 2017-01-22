@@ -33,8 +33,8 @@
 #define _APP_CONSTS_H_
 
 #define maxNodes	4	// Максимальное количество связей для узла
-#define maxCity		24	// Максимальное количество городов
-#define maxBufLen	128	// Максимальный размер буфера
+#define maxCity		64	// Максимальное количество городов
+#define maxBufLen	256	// Максимальный размер буфера
 #define pcNameLen	12
 #define osNameLen	20
 
@@ -46,7 +46,7 @@
 typedef enum {getCityNum = 1, getCityName = 2, getSimpleNode = 3,
 	      getNodeCon = 4, getNewTask = 5, resReport = 6,
 	      checkTripRoute = 7, printRoutesForCity = 8,
-	      getOneRoute = 9
+	      getOneRoute = 9, resetData = 10
 	      } netCommand;
 
 // Упрощённая структура узла

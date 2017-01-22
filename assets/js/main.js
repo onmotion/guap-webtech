@@ -5,6 +5,10 @@ window.onload = function () {
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
+    var canvas2 = document.getElementById("canvas2");
+    var ctx2 = canvas2.getContext("2d");
+    var canvas3 = document.getElementById("canvas3");
+    var ctx3 = canvas3.getContext("2d");
 
     function request(type, param) {
         return new Promise(function (resolve, reject) {
@@ -48,15 +52,16 @@ window.onload = function () {
                 return request('getSimpleNode', resolve.num).then((node) => {
                     nodes[resolve.num] = node;
                     var ctx = canvas.getContext("2d");
-                    ctx.beginPath();
-                    ctx.fillStyle = '#fff';
-                    ctx.arc(node.xPos, node.yPos + 50, 20, 0, 2 * Math.PI, false);
-                    ctx.strokeStyle = '#003';
-                    ctx.fill();
-                    ctx.stroke();
-                    ctx.fillStyle = '#333';
-                    ctx.fillText(node.num, node.xPos - 3, node.yPos + 50 + 3);
-                    ctx.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
+                    ctx3.beginPath();
+                    ctx3.fillStyle = '#fff';
+                    ctx3.arc(node.xPos, node.yPos + 50, 20, 0, 2 * Math.PI, false);
+                    ctx3.strokeStyle = '#003';
+                    ctx3.fill();
+                    ctx3.stroke();
+                    ctx3.fillStyle = '#333';
+                    ctx3.font = '11pt Calibri';
+                    ctx3.fillText(node.num, node.xPos - 3, node.yPos + 50 + 3);
+                    ctx3.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
                     return resolve.num;
                 }).then((n) => {
                     return request('getNodeCon', n).then((connection) => {
@@ -66,6 +71,7 @@ window.onload = function () {
             }))
         }
         $.when.apply(this, promises).then((resolve) => {
+            ctx.strokeStyle = '#999';
             connections.forEach(function (connection, i) {
                 for (var relCity in connection) {
                     if (connection.hasOwnProperty(relCity)) {
@@ -84,15 +90,14 @@ window.onload = function () {
                 $citiesList.append(`<li>${n} - ${city.name}</li>`);
                 $selectCity.append(`<option value=${n}>${city.name}</option>`);
             });
-
         })
-
     });
 
-    const table = $('#routes');
+    const table = $('#routes tbody');
     $(document).on('submit', '#searchForm', function (e) {
         e.preventDefault();
-        const cityNmbr = parseInt($(this).find('#select-city').val());
+        table.html('');
+        const cityNmbr = parseInt($(this).find('#select-city', 10).val());
         if (cityNmbr < 0 || cityNmbr > cities.length - 1) return false;
 
         var citiesArr = cities;
@@ -101,17 +106,32 @@ window.onload = function () {
         citiesArr.forEach(function (city, i) {
             if(i == cityNmbr) return;
             promises.push(request('getRoutes', [cityNmbr, i]).then((route) => {
+                if (route === null){
+                    table.append(
+                        `<tr>
+                        <td>${cities[i].name}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>маршрут еще никто не нашел...</td>
+                        <td></td>
+                    </tr>`);
+                    return;
+                }
                 routes[i] = route;
                 var path = '';
+                var pathNums = '';
                 $.each(route, function(index, value) {
                     if (index == 1){
                         path = cities[value].name;
+                        pathNums = value;
                         return;
                     }
                     if (value == -1){
                         return false;
                     }
-                    path += ' -> ' + cities[value].name;
+                    path += ' > ' + cities[value].name;
+                    pathNums += ';' + value;
                 });
 
                 table.append(
@@ -121,13 +141,58 @@ window.onload = function () {
                         <td>${route.osName}</td>
                         <td>${route.tripPrice} км</td>
                         <td>${path}</td>
-
+                        <td><a class="drawRoute" href="#" data-value="${pathNums}">+</a></td>
                     </tr>`)
             }))
         });
         $.when.apply(this, promises).then((resolve) => {
 
-        })
+        });
+        return false;
+    });
 
+    $(document).on('click', '.drawRoute', function (e) {
+        e.preventDefault();
+        const value = $(this).attr('data-value');
+        const routes = value.split(';');
+        console.log(routes);
+        var p = new Promise((resolve, reject) => {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
+            setTimeout(function () {
+                resolve(true);
+            }, 1000);
+
+        });
+        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+        ctx2.lineWidth = 2;
+        var gLevel = 0;
+        routes.forEach(function (city, i) {
+            const n = city;
+            p = p.then((resolve) => {
+                return new Promise((resolve) => {
+                    gLevel += parseInt(255 / routes.length, 10);
+                    console.log(gLevel);
+                    ctx2.strokeStyle = `rgb(0,0,${gLevel})`;
+                    if(i > 0) {
+                        ctx2.lineTo(nodes[n]['xPos'], nodes[n]['yPos'] + 50);
+                        ctx2.stroke();
+                    }
+                    ctx2.beginPath();
+                    ctx2.moveTo(nodes[n]['xPos'], nodes[n]['yPos'] + 50);
+                    setTimeout(function () {
+                        resolve (true);
+                    }, 500);
+                    console.log(n);
+                })
+
+            })
+        });
+        $.when(p).then((resolve) => {
+            console.log('done');
+        });
+
+       console.log();
     });
 };
