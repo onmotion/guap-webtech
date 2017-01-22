@@ -51,16 +51,16 @@ window.onload = function () {
             }).then((resolve) => {
                 return request('getSimpleNode', resolve.num).then((node) => {
                     nodes[resolve.num] = node;
-                    var ctx = canvas.getContext("2d");
+                    var nLength = node.num.toString().length;
                     ctx3.beginPath();
                     ctx3.fillStyle = '#fff';
-                    ctx3.arc(node.xPos, node.yPos + 50, 20, 0, 2 * Math.PI, false);
+                    ctx3.arc(node.xPos, node.yPos + 50, 15, 0, 2 * Math.PI, false);
                     ctx3.strokeStyle = '#003';
                     ctx3.fill();
                     ctx3.stroke();
                     ctx3.fillStyle = '#333';
                     ctx3.font = '11pt Calibri';
-                    ctx3.fillText(node.num, node.xPos - 5, node.yPos + 50 + 3);
+                    ctx3.fillText(node.num, node.xPos - 4 * nLength, node.yPos + 50 + 4);
                     ctx3.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
                     return resolve.num;
                 }).then((n) => {
