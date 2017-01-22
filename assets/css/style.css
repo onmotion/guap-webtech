@@ -32,17 +32,25 @@ table, th, td {
     padding: 10px 15px;
     min-height: 2100px;
 }
-#reset{
+#reset, #download{
     padding: 10px 5px;
     background: #ff5a4d;
     color: #fff;
     border-radius: 5px;
+    margin-left: 5px;
     text-decoration: none;
     float: right;
     transition: all .2s;
 }
 #reset:hover, #reset:active, #reset:focus{
     background: #A83F38;
+}
+#download{
+    background: #dddbd8;
+    color: #555;
+}
+#download:hover, #download:active, #download:focus{
+    background: #bcb9b8;
 }
 .map-wrap{
     position: relative;
