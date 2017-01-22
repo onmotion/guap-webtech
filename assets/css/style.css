@@ -115,3 +115,7 @@ table, th, td {
     padding: 10px;
     border-radius: 5px;
 }
+.drawRoute{
+    text-decoration: none;
+    color: #2196F3;
+}
