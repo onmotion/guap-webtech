@@ -48,6 +48,9 @@ class Socket
     public function getCityNum(){
         return self::makeQuery(pack('i', 1), 'Cquantity');
     }
+    public function reset(){
+        return self::makeQuery(pack('i', 10), 'Cquantity');
+    }
     public function getCityName(int $cityNum){
        return self::makeQuery(pack('C*', 2, $cityNum), 'A*name');
     }

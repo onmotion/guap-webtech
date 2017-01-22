@@ -25,11 +25,23 @@ table, th, td {
     padding: 5px;
 }
 .container{
-    max-width: 1200px;
+    max-width: 1265px;
     margin: auto;
     background: #fff;
     padding: 10px 15px;
     min-height: 2100px;
+}
+#reset{
+    padding: 10px 5px;
+    background: #ff5a4d;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    float: right;
+    transition: all .2s;
+}
+#reset:hover, #reset:active, #reset:focus{
+    background: #A83F38;
 }
 .map-wrap{
     position: relative;
@@ -39,13 +51,16 @@ table, th, td {
     border-radius: 5px;
     position: relative;
     z-index: 0;
+    padding-left: 15px;
 }
 #canvas2, #canvas3{
     background: transparent;
     border-radius: 5px;
     position: absolute;
     top: 0;
+    left: 0;
     z-index: 1;
+    padding-left: 15px;
 }
 #canvas3{
     z-index: 2;
@@ -56,7 +71,7 @@ table, th, td {
     margin-left: 10px;
     background: #607D8B;
     color: #fff;
-    padding: 0 15px;
+
     border-radius: 5px;
     overflow: hidden;
     position: absolute;
@@ -64,9 +79,16 @@ table, th, td {
     top: 10px;
     opacity: .5;
     z-index: 4;
+    max-height: 700px;
+}
+.right p{
+    padding: 0 15px;
 }
 #citiesList{
     height: 0;
+    max-height: 600px;
+    padding: 0 15px;
+    overflow: auto;
 }
 .right:hover{
     opacity: 1;

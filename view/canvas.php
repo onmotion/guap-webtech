@@ -14,9 +14,9 @@
 <div class="container">
 
     <div class="map-wrap">
-    <canvas id="canvas" width="1200" height="750"></canvas>
-        <canvas id="canvas2" width="1200" height="750"></canvas>
-        <canvas id="canvas3" width="1200" height="750"></canvas>
+    <canvas id="canvas" width="1250" height="780"></canvas>
+        <canvas id="canvas2" width="1250" height="780"></canvas>
+        <canvas id="canvas3" width="1250" height="780"></canvas>
         <div class="right">
             <p>Всего городов: <span id="numOfCities"></span></p>
             <div id="citiesList">
@@ -33,6 +33,7 @@
     </form>
 
 </div>
+    <a id="reset" href="#">Сбросить вычисления</a>
 <hr>
 <h3>Таблица маршрутов</h3>
     <table id="routes">

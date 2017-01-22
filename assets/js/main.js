@@ -155,7 +155,6 @@ window.onload = function () {
         e.preventDefault();
         const value = $(this).attr('data-value');
         const routes = value.split(';');
-        console.log(routes);
         var p = new Promise((resolve, reject) => {
             $('html, body').animate({
                 scrollTop: 0
@@ -173,7 +172,6 @@ window.onload = function () {
             p = p.then((resolve) => {
                 return new Promise((resolve) => {
                     gLevel += parseInt(255 / routes.length, 10);
-                    console.log(gLevel);
                     ctx2.strokeStyle = `rgb(0,0,${gLevel})`;
                     if(i > 0) {
                         ctx2.lineTo(nodes[n]['xPos'], nodes[n]['yPos'] + 50);
@@ -184,7 +182,6 @@ window.onload = function () {
                     setTimeout(function () {
                         resolve (true);
                     }, 500);
-                    console.log(n);
                 })
 
             })
@@ -193,6 +190,12 @@ window.onload = function () {
             console.log('done');
         });
 
-       console.log();
+    });
+
+    $(document).on('click', '#reset', function (e) {
+        e.preventDefault();
+        request('reset').then((resolve) => {
+            alert('Вычисления сброшены.');
+        });
     });
 };

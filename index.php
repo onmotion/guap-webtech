@@ -47,6 +47,9 @@ if (isset($_GET['type'])){
         case 'getCityNum':
             $resp = $client->getCityNum();
             break;
+        case 'reset':
+            $resp = $client->reset();
+            break;
         case 'getRoutes':
             if (!isset($_GET['param'])){
                 throw new \Exception('Отсутствует обязательный параметр param.');
