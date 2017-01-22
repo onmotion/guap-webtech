@@ -30,8 +30,10 @@ window.onload = function () {
 
     var cities = [],
         connections = [],
-        nodes = [];
+        nodes = [],
+        routes = [];
     const $citiesList = $('#citiesList ul');
+    const $selectCity = $('#select-city');
     //получаем количество городов
     request('getCityNum').then(function (resolve) {
         $('#numOfCities').html(resolve.quantity);
@@ -41,48 +43,91 @@ window.onload = function () {
             //получаем названия городов
             promises.push(request('getCityName', i).then((resolve) => {
                 cities[n] = resolve;
-                return n;
-            }).then((n) => {
-                return request('getSimpleNode', n).then((node) => {
-                    nodes[n] = node;
+                return {num: n, city: resolve};
+            }).then((resolve) => {
+                return request('getSimpleNode', resolve.num).then((node) => {
+                    nodes[resolve.num] = node;
                     var ctx = canvas.getContext("2d");
                     ctx.beginPath();
                     ctx.fillStyle = '#fff';
-                    ctx.arc(node[2], node[3], 20, 0, 2 * Math.PI, false);
+                    ctx.arc(node.xPos, node.yPos + 50, 20, 0, 2 * Math.PI, false);
                     ctx.strokeStyle = '#003';
                     ctx.fill();
                     ctx.stroke();
                     ctx.fillStyle = '#333';
-                    ctx.fillText(node[1], node[2] - 3, node[3] + 3);
-                    return n;
+                    ctx.fillText(node.num, node.xPos - 3, node.yPos + 50 + 3);
+                    ctx.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
+                    return resolve.num;
                 }).then((n) => {
                     return request('getNodeCon', n).then((connection) => {
-                         connections[n] = connection;
+                        connections[n] = connection;
                     });
                 })
             }))
         }
-        $.when.apply(this,promises).then((resolve) => {
+        $.when.apply(this, promises).then((resolve) => {
             connections.forEach(function (connection, i) {
                 for (var relCity in connection) {
-                    if(connection.hasOwnProperty(relCity)) {
+                    if (connection.hasOwnProperty(relCity)) {
                         if (connection[relCity] != -1) {
-                            ctx.globalCompositeOperation='destination-over';
+                            ctx.globalCompositeOperation = 'destination-over';
                             ctx.beginPath();
-                            ctx.moveTo(nodes[i][2], nodes[i][3]);
-                            ctx.lineTo(nodes[connection[relCity]][2], nodes[connection[relCity]][3]);
+                            ctx.moveTo(nodes[i]['xPos'], nodes[i]['yPos'] + 50);
+                            ctx.lineTo(nodes[connection[relCity]]['xPos'], nodes[connection[relCity]]['yPos'] + 50);
                             ctx.stroke();
                         }
                     }
                 }
 
             });
-                   cities.forEach(function (city, n) {
-                                                $citiesList.append(`<li>${n} - ${city.name}</li>`);
-                   })
+            cities.forEach(function (city, n) {
+                $citiesList.append(`<li>${n} - ${city.name}</li>`);
+                $selectCity.append(`<option value=${n}>${city.name}</option>`);
+            });
 
         })
 
-    })
+    });
 
+    const table = $('#routes');
+    $(document).on('submit', '#searchForm', function (e) {
+        e.preventDefault();
+        const cityNmbr = parseInt($(this).find('#select-city').val());
+        if (cityNmbr < 0 || cityNmbr > cities.length - 1) return false;
+
+        var citiesArr = cities;
+
+        var promises = [];
+        citiesArr.forEach(function (city, i) {
+            if(i == cityNmbr) return;
+            promises.push(request('getRoutes', [cityNmbr, i]).then((route) => {
+                routes[i] = route;
+                var path = '';
+                $.each(route, function(index, value) {
+                    if (index == 1){
+                        path = cities[value].name;
+                        return;
+                    }
+                    if (value == -1){
+                        return false;
+                    }
+                    path += ' -> ' + cities[value].name;
+                });
+
+                table.append(
+                    `<tr>
+                        <td>${cities[i].name}</td>
+                        <td>${route.pcName}</td>
+                        <td>${route.osName}</td>
+                        <td>${route.tripPrice} км</td>
+                        <td>${path}</td>
+
+                    </tr>`)
+            }))
+        });
+        $.when.apply(this, promises).then((resolve) => {
+
+        })
+
+    });
 };

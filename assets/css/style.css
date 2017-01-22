@@ -1,4 +1,46 @@
+body{
+    font-family: 'Helvetica Neue', sans-serif;
+}
+h1{
+    background: #009688;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+}
+table, th, td {
+    border: 1px solid #999;
+    border-collapse: collapse;
+    padding: 5px;
+}
+.container{
+    max-width: 1200px;
+    margin: auto;
+}
+.map-wrap{
+    display: flex;
+}
 #canvas{
     background: rgba(98, 191, 124, 0.32);
-    padding-top: 20px;
+    border-radius: 5px;
+}
+.right{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    background: #ececec;
+    padding: 0 10px;
+    border-radius: 5px;
+    width: 100%;
+    overflow: auto;
+}
+
+#citiesList ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+.controls{
+    display: inline-block;
+    background: #ececec;
+    padding: 10px;
+    border-radius: 5px;
 }

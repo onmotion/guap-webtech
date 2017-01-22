@@ -11,17 +11,35 @@
 <h1>Карта городов</h1>
 <body>
 <div class="container">
-    <canvas id="canvas" width="900" height="650"></canvas>
-</body>
-<hr>
-<div class="col-sm-6">
-    <p>Всего городов: <span id="numOfCities"></span></p>
-    <div id="citiesList">
-        <ul></ul>
+    <div class="map-wrap">
+    <canvas id="canvas" width="900" height="680"></canvas>
+    <div class="right">
+        <p>Всего городов: <span id="numOfCities"></span></p>
+        <div id="citiesList">
+            <ul></ul>
+        </div>
     </div>
-</div>
-<div class="col-sm-6">
+    </div>
+<div class="controls">
+    <form id="searchForm" action="#">
+        <label>Показать маршруты из пункта:</label>
+        <select id="select-city" name="select-city"></select>
+        <input type="submit" value="Показать">
+    </form>
 
+</div>
+<hr>
+<h3>Таблица маршрутов</h3>
+    <table id="routes">
+        <tr>
+            <th>Пункт назначения</th>
+            <th>Логин</th>
+            <th>ОС</th>
+            <th>Цена пути</th>
+            <th>Найденный путь</th>
+        </tr>
 
+    </table>
 </div>
-</div>
+
+</body>

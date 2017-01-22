@@ -31,18 +31,12 @@ if (isset($_GET['type'])){
                 throw new \Exception('Отсутствует обязательный параметр param.');
             }
             $resp = $client->getSimpleNode((int)$_GET['param']);
-//            if (count($resp) == 7){
-//                $resp = array_combine(['num', 'xPos', 'yPos'], $resp);
-//            }
             break;
         case 'getCityName':
             if (!isset($_GET['param'])){
                 throw new \Exception('Отсутствует обязательный параметр param.');
             }
             $resp = $client->getCityName((int)$_GET['param']);
-            if ($resp){
-                $resp = array_combine(['name'], $resp);
-            }
             break;
         case 'getNodeCon':
             if (!isset($_GET['param'])){
@@ -52,9 +46,13 @@ if (isset($_GET['type'])){
             break;
         case 'getCityNum':
             $resp = $client->getCityNum();
-            if ($resp){
-                $resp = array_combine(['quantity', 'ext'], $resp);
+            break;
+        case 'getRoutes':
+            if (!isset($_GET['param'])){
+                throw new \Exception('Отсутствует обязательный параметр param.');
             }
+            $resp = $client->getRoutes((int)$_GET['param'][0], (int)$_GET['param'][1]);
+            $resp = $resp['tripPrice'] == -1 ? null : $resp;
             break;
         default:
             echo 'Unknown command';

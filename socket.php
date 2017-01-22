@@ -38,7 +38,7 @@ class Socket
         socket_write($this->socket, $query, strlen($query));
 
         $response = null;
-        while ($out = socket_read($this->socket, 2048)) {
+        while ($out = socket_read($this->socket, 1024)) {
             $response = unpack($responseFormat, $out);
         }
 
@@ -46,19 +46,22 @@ class Socket
     }
 
     public function getCityNum(){
-        return self::makeQuery(pack('i', 1));
+        return self::makeQuery(pack('i', 1), 'Cquantity');
     }
     public function getCityName(int $cityNum){
-       return self::makeQuery(pack('C*', 2, $cityNum), 'A*');
+       return self::makeQuery(pack('C*', 2, $cityNum), 'A*name');
     }
     public function getRoutesForCity(int $cityNum){
        return self::makeQuery(pack('C*', 8, $cityNum), 'A*');
     }
     public function getSimpleNode(int $cityNum){
-       return self::makeQuery(pack('C*', 3, $cityNum), 'I*');
+       return self::makeQuery(pack('C*', 3, $cityNum), 'Inum/IxPos/IyPos/I*');
     }
     public function getNodeCon(int $cityNum){
        return self::makeQuery(pack('C*', 4, $cityNum), 's*');
+    }
+    public function getRoutes(int $from, int $to){
+       return self::makeQuery(pack('CSS', 9, $from, $to), 'A12pcName/A20osName/stripPrice/s*');
     }
 
 }
