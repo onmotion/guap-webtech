@@ -184,7 +184,7 @@ window.onload = function () {
                 return new Promise((resolve) => {
                     gLevel += parseInt(255 / routes.length, 10);
                     bLevel -= parseInt(255 / routes.length, 10);
-                    ctx2.strokeStyle = `rgb(0,${gLevel},${bLevel})`;
+                    ctx2.strokeStyle = `rgb(255,${gLevel},${bLevel})`;
                     if(i > 0) {
                         ctx2.lineTo(nodes[n]['xPos'], nodes[n]['yPos'] + 50);
                         ctx2.stroke();
