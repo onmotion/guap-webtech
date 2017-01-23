@@ -34,7 +34,7 @@
 
 </div>
     <a id="reset" href="#">Сбросить вычисления</a>
-    <a id="download" target="_blank" href="/sources/progBigWorld.zip">Скачать программу</a>
+    <a id="download" target="_blank" href="/download/progBigWorld.zip">Скачать программу</a>
 <hr>
 <h3>Таблица маршрутов</h3>
     <table id="routes">
