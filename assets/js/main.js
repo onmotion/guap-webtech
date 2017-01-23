@@ -17,6 +17,9 @@ window.onload = function () {
     };
     imageObj.src = '/assets/map2.jpg';
 
+    ctx.lineWidth = 3;
+    ctx2.lineWidth = 3;
+
     function request(type, param) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -173,7 +176,6 @@ window.onload = function () {
 
         });
         ctx2.clearRect(0, 0, canvas.width, canvas.height);
-        ctx2.lineWidth = 2;
         var gLevel = 0;
         var bLevel = 255;
         routes.forEach(function (city, i) {
