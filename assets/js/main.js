@@ -13,9 +13,9 @@ window.onload = function () {
     var imageObj = new Image();
 
     imageObj.onload = function() {
-        ctx.drawImage(imageObj, 0, 25);
+        ctx.drawImage(imageObj, 0, 0);
     };
-    imageObj.src = '/assets/map.png';
+    imageObj.src = '/assets/map2.jpg';
 
     function request(type, param) {
         return new Promise(function (resolve, reject) {
@@ -68,6 +68,7 @@ window.onload = function () {
                     ctx3.fillStyle = '#333';
                     ctx3.font = '11pt Calibri';
                     ctx3.fillText(node.num, node.xPos - 4 * nLength, node.yPos + 50 + 4);
+                    ctx3.fillStyle = '#eee';
                     ctx3.fillText(resolve.city.name, node.xPos - 10, node.yPos + 25);
                     return resolve.num;
                 }).then((n) => {

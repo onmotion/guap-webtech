@@ -12,9 +12,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <script type="application/javascript" src="/assets/js/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="/assets/css/style.css?v=6">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7">
     <link rel="stylesheet" href="/assets/icons/styles.css">
 <title>webtech</title>
 </head>

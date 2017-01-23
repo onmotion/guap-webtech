@@ -7,7 +7,7 @@
  */
 
 ?>
-<script type="application/javascript" src="/assets/js/main.js?v=5"></script>
+<script type="application/javascript" src="/assets/js/main.js?v=6"></script>
 
 <body>
 <h1>Карта городов</h1>
