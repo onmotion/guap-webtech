@@ -6,6 +6,7 @@
  * Time: 12:06
  */
 
+/* @var $view string */
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
 <body>
 
 <?php
-include 'view/' . $view . '.php';
+include "view/$view.php";
 ?>
 
 </body>

@@ -69,6 +69,5 @@ if (isset($_GET['type'])){
 }
 $resp = $client->getCityNum();
 
-//echo "Количество зарегестрированных городов на сервере: " . array_shift($resp);
 render('canvas');
 return 0;
