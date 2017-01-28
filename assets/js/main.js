@@ -2,6 +2,7 @@
  * Created by a.kozhevnikov on 21/01/2017.
  */
 window.onload = function () {
+    'use strict';
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
