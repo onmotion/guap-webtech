@@ -9,12 +9,10 @@
 ?>
 <script type="application/javascript" src="/assets/js/main.js?v=6"></script>
 
-<body>
 <h1>Карта городов</h1>
 <div class="container">
-
     <div class="map-wrap">
-    <canvas id="canvas" width="1220" height="780"></canvas>
+        <canvas id="canvas" width="1220" height="780"></canvas>
         <canvas id="canvas2" width="1220" height="780"></canvas>
         <canvas id="canvas3" width="1220" height="780"></canvas>
         <div class="right">
@@ -24,19 +22,17 @@
             </div>
         </div>
     </div>
-
-<div class="controls">
-    <form id="searchForm" action="#">
-        <label>Показать маршруты из пункта:</label>
-        <select id="select-city" name="select-city"></select>
-        <input type="submit" value="Показать">
-    </form>
-
-</div>
+    <div class="controls">
+        <form id="searchForm" action="#">
+            <label>Показать маршруты из пункта:</label>
+            <select id="select-city" name="select-city"></select>
+            <input type="submit" value="Показать">
+        </form>
+    </div>
     <a id="reset" href="#">Сбросить вычисления</a>
     <a id="download" target="_blank" href="/download/progBigWorld.zip">Скачать программу</a>
-<hr>
-<h3>Таблица маршрутов</h3>
+    <hr>
+    <h3>Таблица маршрутов</h3>
     <table id="routes">
         <thead>
         <tr>
@@ -51,5 +47,3 @@
         <tbody></tbody>
     </table>
 </div>
-
-</body>
