@@ -74,7 +74,6 @@ if (isset($_GET['type'])){
     echo json_encode($resp, JSON_UNESCAPED_UNICODE);
     return 0;
 }
-$resp = $client->getCityNum();
 
 render('canvas');
 return 0;

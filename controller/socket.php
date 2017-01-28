@@ -32,7 +32,7 @@ class Socket
         socket_close($this->socket);
     }
 
-    private function makeQuery($query, $responseFormat = 'C*')
+    private function makeQuery($query, $responseFormat)
     {
 
         socket_write($this->socket, $query, strlen($query));
@@ -44,25 +44,31 @@ class Socket
 
         return $response;
     }
-
+    //получить количество городов
     public function getCityNum(){
         return self::makeQuery(pack('i', 1), 'Cquantity');
     }
+    //сбросить расчеты
     public function reset(){
         return self::makeQuery(pack('i', 10), 'Cquantity');
     }
+    //получить название города
     public function getCityName(int $cityNum){
        return self::makeQuery(pack('C*', 2, $cityNum), 'A*name');
     }
+    //получить маршрут для города
     public function getRoutesForCity(int $cityNum){
        return self::makeQuery(pack('C*', 8, $cityNum), 'A*');
     }
+    //получить 1 узел
     public function getSimpleNode(int $cityNum){
        return self::makeQuery(pack('C*', 3, $cityNum), 'Inum/IxPos/IyPos/I*');
     }
+    //получить связи для узла
     public function getNodeCon(int $cityNum){
        return self::makeQuery(pack('C*', 4, $cityNum), 's*');
     }
+    //получить маршрут из from в to
     public function getRoutes(int $from, int $to){
        return self::makeQuery(pack('CSS', 9, $from, $to), 'A12pcName/A20osName/stripPrice/s*');
     }
