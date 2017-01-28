@@ -10,11 +10,18 @@ ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 
 spl_autoload_register(function ($class_name) {
-    $parts = explode('\\', $class_name);
-    require strtolower(end($parts)) . '.php';
+    $class_name = strtolower(str_replace('\\', '/', $class_name));
+    $path = realpath(__DIR__ . (strstr($class_name, '/') . '.php'));
+    if ($path){
+        try{
+            require $path;
+        }catch (\Exception $e){
+            exit($e->getMessage());
+        }
+    }
 });
 
-use kozhevnikov\Socket;
+use kozhevnikov\controller\Socket;
 
 function render($view){
     include 'view/layout.php';

@@ -5,7 +5,7 @@
  * Date: 20/01/2017
  * Time: 22:22
  */
-namespace kozhevnikov;
+namespace kozhevnikov\controller;
 
 
 class Socket
